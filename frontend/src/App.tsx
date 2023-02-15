@@ -8,7 +8,7 @@ export default function App() {
   const [user, setUser] = useState(null);
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <NotificationsProvider>
+      <NotificationsProvider position={"top-right"} zIndex={3015}>
         {user ? (
           <Home setUser={setUser} />
         ) : (

@@ -1,6 +1,4 @@
 import { Button } from "@mantine/core";
-import { showNotification } from "@mantine/notifications";
-import { Check } from "tabler-icons-react";
 
 interface HomeProps {
   setUser: (user: any) => void;
@@ -9,12 +7,6 @@ interface HomeProps {
 export default function Home(props: HomeProps) {
   const logout = () => {
     props.setUser(null);
-    showNotification({
-      title: "Logged out",
-      message: "You have been logged out",
-      color: "teal",
-      icon: <Check />,
-    });
   };
   return (
     <div>
