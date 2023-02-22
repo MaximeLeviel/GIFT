@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.8'
 
 services:
   postgres:
@@ -10,4 +10,4 @@ services:
     ports:
       - ${POSTGRES_ADDRESS}:${POSTGRES_PORT}:5432
     volumes:
-      - ./docker/postgres:/var/lib/postgresql/data
+      - ./src/init_table.sql:/docker-entrypoint-initdb.d/init.sql
