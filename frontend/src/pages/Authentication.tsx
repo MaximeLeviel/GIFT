@@ -7,7 +7,11 @@ import {
   Title,
 } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
-import { useState } from "react";
+import { useForm } from "@mantine/form";
+import { upperFirst } from "@mantine/hooks";
+import * as userService from "../services/userService";
+import { AxiosError } from "axios";
+import User from "../types/User";
 import "../styles/global.scss";
 
 interface AuthenticationProps {
@@ -15,14 +19,18 @@ interface AuthenticationProps {
 }
 
 export default function Authentication(props: AuthenticationProps) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const form = useForm({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const signIn = () => {
-    if (email === "" || password === "") {
+    if (!form.values.email || !form.values.password) {
       showNotification({
         title: "Error",
-        message: "Please fill in all fields",
+        message: "Please fill in all the fields",
         color: "white",
         styles: (theme) => ({
           root: {
@@ -42,7 +50,102 @@ export default function Authentication(props: AuthenticationProps) {
       });
       return;
     }
-    //TODO: Doing API calls to sign in and print notification error if any
+
+    const user: User = new User(form.values.email, form.values.password);
+
+    userService
+      .loginUser(user)
+      .then((response: any) => {
+        showNotification({
+          title: "Logged in",
+          message: `You have been logged in as ${response.firstName} ${response.lastName}`,
+          color: "white",
+          styles: (theme) => ({
+            root: {
+              backgroundColor: theme.colors.teal[6],
+              borderColor: theme.colors.teal[6],
+
+              "&::before": { backgroundColor: theme.white },
+            },
+
+            title: { color: theme.white },
+            description: { color: theme.white },
+            closeButton: {
+              color: theme.white,
+              "&:hover": { backgroundColor: theme.colors.teal[8] },
+            },
+          }),
+        });
+        props.setUser(response);
+      })
+      .catch((error: AxiosError) => {
+        if (!error.response) {
+          showNotification({
+            title: "Error",
+            message: error.message,
+            color: "white",
+            styles: (theme) => ({
+              root: {
+                backgroundColor: theme.colors.red[6],
+                borderColor: theme.colors.red[6],
+
+                "&::before": { backgroundColor: theme.white },
+              },
+
+              title: { color: theme.white },
+              description: { color: theme.white },
+              closeButton: {
+                color: theme.white,
+                "&:hover": { backgroundColor: theme.colors.red[8] },
+              },
+            }),
+          });
+          return;
+        }
+        if (error.response.status.toString().startsWith("5")) {
+          showNotification({
+            title: "Error",
+            message: "Server error, please contact an administrator",
+            color: "white",
+            styles: (theme) => ({
+              root: {
+                backgroundColor: theme.colors.red[6],
+                borderColor: theme.colors.red[6],
+
+                "&::before": { backgroundColor: theme.white },
+              },
+
+              title: { color: theme.white },
+              description: { color: theme.white },
+              closeButton: {
+                color: theme.white,
+                "&:hover": { backgroundColor: theme.colors.red[8] },
+              },
+            }),
+          });
+        } else {
+          showNotification({
+            title: "Error",
+            message: "Wrong email or password",
+            color: "white",
+            styles: (theme) => ({
+              root: {
+                backgroundColor: theme.colors.red[6],
+                borderColor: theme.colors.red[6],
+
+                "&::before": { backgroundColor: theme.white },
+              },
+
+              title: { color: theme.white },
+              description: { color: theme.white },
+              closeButton: {
+                color: theme.white,
+                "&:hover": { backgroundColor: theme.colors.red[8] },
+              },
+            }),
+          });
+        }
+      });
   };
 
   const login = () => {
@@ -87,17 +190,17 @@ export default function Authentication(props: AuthenticationProps) {
           <TextInput
             id="authentication-email-input"
             label="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             placeholder="email@example.com"
+            value={form.values.email}
+            onChange={(e) => form.setFieldValue("email", e.target.value)}
             required
           />
           <PasswordInput
             id="authentication-password-input"
             label="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             placeholder="Your password"
+            value={form.values.password}
+            onChange={(e) => form.setFieldValue("password", e.target.value)}
             required
             mt="md"
           />
@@ -106,11 +209,15 @@ export default function Authentication(props: AuthenticationProps) {
             fullWidth
             mt="xl"
             onClick={signIn}
+            type={"submit"}
           >
-            Sign in
+            {upperFirst("Sign in")}
           </Button>
-          <Button fullWidth mt="xl" onClick={login}>
-            (DEV) Sign in as John Doe
+          {
+            //TODO: To delete when the API calls are done
+          }
+          <Button fullWidth mt="xl" type={"submit"} onClick={login}>
+            {upperFirst("(DEV) Sign in as John Doe)")}
           </Button>
         </Paper>
       </Container>
