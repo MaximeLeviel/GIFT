@@ -1,5 +1,5 @@
 import { NotificationsProvider } from "@mantine/notifications";
-import Authentication from "./Authentication";
+import Authentication from "../components/Authentication";
 import { useState } from "react";
 import Home from "./Home";
 
