@@ -1,6 +1,6 @@
 import * as httpService from "./httpService";
 import APICONSTANTS from "../constants/constants";
-import User from "../entities/User";
+import Admin from "../entities/Admin";
 
 export function getUsers() {
   return httpService
@@ -24,7 +24,7 @@ export function getUserById(id: number) {
     });
 }
 
-export function saveUser(data: User) {
+export function saveUser(data: Admin) {
   return httpService
     .post(APICONSTANTS.USER, data)
     .then((response) => {
@@ -35,7 +35,7 @@ export function saveUser(data: User) {
     });
 }
 
-export function editUser(data: User) {
+export function editUser(data: Admin) {
   return httpService
     .put(APICONSTANTS.USER, data)
     .then((response) => {
@@ -57,7 +57,7 @@ export function removeUser(id: number) {
     });
 }
 
-export function loginUser(data: User) {
+export function loginUser(data: Admin) {
   return httpService
     .post(APICONSTANTS.USER + "/login", data)
     .then((response) => {

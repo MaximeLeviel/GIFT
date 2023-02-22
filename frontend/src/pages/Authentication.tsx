@@ -11,7 +11,7 @@ import { useForm } from "@mantine/form";
 import { upperFirst } from "@mantine/hooks";
 import * as userService from "../services/userService";
 import { AxiosError } from "axios";
-import User from "../entities/User";
+import Admin from "../entities/Admin";
 import "../styles/global.scss";
 
 interface AuthenticationProps {
@@ -51,10 +51,10 @@ export default function Authentication(props: AuthenticationProps) {
       return;
     }
 
-    const user: User = new User(form.values.email, form.values.password);
+    const admin: Admin = new Admin(form.values.email, form.values.password);
 
     userService
-      .loginUser(user)
+      .loginUser(admin)
       .then((response: any) => {
         showNotification({
           title: "Logged in",
