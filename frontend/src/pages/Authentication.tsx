@@ -11,7 +11,7 @@ import { useForm } from "@mantine/form";
 import { upperFirst } from "@mantine/hooks";
 import * as userService from "../services/userService";
 import { AxiosError } from "axios";
-import User from "../types/User";
+import User from "../entities/User";
 import "../styles/global.scss";
 
 interface AuthenticationProps {

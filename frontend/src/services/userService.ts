@@ -1,6 +1,6 @@
 import * as httpService from "./httpService";
 import APICONSTANTS from "../constants/constants";
-import User from "../types/User";
+import User from "../entities/User";
 
 export function getUsers() {
   return httpService
