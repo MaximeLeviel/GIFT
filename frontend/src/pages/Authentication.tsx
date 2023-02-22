@@ -176,13 +176,7 @@ export default function Authentication(props: AuthenticationProps) {
   return (
     <Container id={"authentication"} sx={{ maxWidth: 100000 }}>
       <Container size={600} pt={175}>
-        <Title
-          align="center"
-          sx={(theme) => ({
-            fontFamily: `Greycliff CF, ${theme.fontFamily}`,
-            fontWeight: 900,
-          })}
-        >
+        <Title align="center" className="title">
           Welcome back!
         </Title>
 

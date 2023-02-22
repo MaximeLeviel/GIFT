@@ -1,8 +1,46 @@
 // This file can be imported by .tsx files using:
 // import 'styles/global.scss'
+@import "variables.scss";
 
 #authentication {
   background-size: cover;
   min-height: 900px;
   background-image: url("https://images.pexels.com/photos/8301240/pexels-photo-8301240.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+}
+
+.highlight {
+  position: relative;
+  background-color: rgb(231, 245, 255, 1);
+  border-radius: 4px;
+  padding: 4px 12px;
+}
+
+.title {
+  font-family: "Greycliff CF", sans-serif;
+  font-size: 44px;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  padding-top: $xl * 4;
+  padding-bottom: $xl * 4;
+}
+
+.content {
+  max-width: 480px;
+  margin-right: $xl * 4;
+  @media (max-width: 768px) {
+    max-width: 100%;
+    margin-right: 0;
+  }
+}
+
+.image {
+  flex: 1;
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
