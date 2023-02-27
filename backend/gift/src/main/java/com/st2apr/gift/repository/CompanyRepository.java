@@ -24,7 +24,7 @@ public class CompanyRepository {
     }
 
     public Company findByName(String name) {
-        TypedQuery<Company> query = entityManager.createQuery("SELECT c FROM Company c WHERE c.name = :name", Company.class);
+        TypedQuery<Company> query = entityManager.createNamedQuery("Company.findByName", Company.class);
         query.setParameter("name", name);
         try {
             return query.getSingleResult();

@@ -6,6 +6,9 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "company", schema = "public", catalog = "db")
+@NamedQueries(
+        @NamedQuery(name = "Company.findByName", query = "SELECT c FROM Company c WHERE c.name = :name")
+)
 public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

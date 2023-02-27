@@ -22,7 +22,7 @@ public class StudentRepository {
     }
 
     public List<Student> findAllStudents() {
-        TypedQuery<Student> query = entityManager.createQuery("SELECT s FROM Student s", Student.class);
+        TypedQuery<Student> query = entityManager.createNamedQuery("Student.findAllStudents", Student.class);
         return query.getResultList();
     }
 
@@ -31,7 +31,7 @@ public class StudentRepository {
     }
 
     public Student findByFirstName(String firstName) {
-        TypedQuery<Student> query = entityManager.createQuery("SELECT s FROM Student s WHERE s.firstName = :firstName", Student.class);
+        TypedQuery<Student> query = entityManager.createNamedQuery("Student.findByFirstName", Student.class);
         query.setParameter("firstName", firstName);
         try {
             return query.getSingleResult();

@@ -24,7 +24,7 @@ public class TutorRepository {
     }
 
     public Tutor findByUsername(String username) {
-        TypedQuery<Tutor> query = entityManager.createQuery("SELECT t FROM Tutor t WHERE t.username = :username", Tutor.class);
+        TypedQuery<Tutor> query = entityManager.createNamedQuery("Tutor.findByUsername", Tutor.class);
         query.setParameter("username", username);
         try {
             return query.getSingleResult();

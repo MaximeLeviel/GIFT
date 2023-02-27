@@ -6,6 +6,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tutor", schema = "public", catalog = "db")
+@NamedQueries(
+        @NamedQuery(name = "Tutor.findByUsername", query = "SELECT t FROM Tutor t WHERE t.username = :username")
+)
 public class Tutor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
