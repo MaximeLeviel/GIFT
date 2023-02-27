@@ -4,6 +4,8 @@ import com.st2apr.gift.model.Student;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Stateless
 public class StudentRepository {
     private final EntityManager entityManager;
@@ -17,6 +19,11 @@ public class StudentRepository {
         EntityTransaction transaction = startTransaction();
         entityManager.persist(student);
         endTransaction(transaction);
+    }
+
+    public List<Student> findAllStudents() {
+        TypedQuery<Student> query = entityManager.createQuery("SELECT s FROM Student s", Student.class);
+        return query.getResultList();
     }
 
     public Student findById(int id) {
