@@ -34,7 +34,7 @@ public class HelloResource {
         StudentRepository studentRepository = new StudentRepository();
         Student student = new Student();
         student.setId(10);
-        student.setFirstName("first name");
+        student.setFirstName("Student 1");
         student.setLastName("last name");
         student.setGroupName("group name");
         student.setCompany(company);
