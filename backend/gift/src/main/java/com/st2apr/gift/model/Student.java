@@ -22,9 +22,9 @@ public class Student {
     @Basic
     @Column(name = "group_name", nullable = false, length = -1)
     private String groupName;
-    @ManyToOne
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Internship internship;
-    @ManyToOne
+    @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Company company;
 
     public int getId() {

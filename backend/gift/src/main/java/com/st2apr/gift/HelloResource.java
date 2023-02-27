@@ -21,7 +21,6 @@ public class HelloResource {
         company.setName("company name");
         company.setAddress("company address");
         company.setTutor("company tutor");
-        companyRepository.create(company);
 
         InternshipRepository internshipRepository = new InternshipRepository();
         Internship internship = new Internship();
@@ -29,12 +28,11 @@ public class HelloResource {
         internship.setMissionDescription("mission description");
         internship.setVisitForm("visit form");
         internship.setComment("comment");
-        internshipRepository.create(internship);
 
         StudentRepository studentRepository = new StudentRepository();
         Student student = new Student();
         student.setId(10);
-        student.setFirstName("Student 1");
+        student.setFirstName("Student 144");
         student.setLastName("last name");
         student.setGroupName("group name");
         student.setCompany(company);
