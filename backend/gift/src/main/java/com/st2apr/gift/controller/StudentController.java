@@ -28,4 +28,10 @@ public class StudentController {
     public void createStudent(Student student) {
         studentRepository.create(student);
     }
+
+    @PUT
+    @Consumes("application/json")
+    public void updateStudent(Student student) {
+        studentRepository.update(student);
+    }
 }
