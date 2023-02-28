@@ -4,16 +4,14 @@ import { useState } from "react";
 import Home from "./Home";
 
 export default function Login() {
-
-    const [user, setUser] = useState(null);
-    return (
+  const [schoolTutor, setSchoolTutor] = useState(null);
+  return (
     <NotificationsProvider position={"top-right"} zIndex={3015}>
-        {user ? (
-            <Home setUser={setUser} />
-        ) : (
-            <Authentication setUser={setUser} />
-        )}
+      {schoolTutor ? (
+        <Home schoolTutor={schoolTutor} setSchoolTutor={setSchoolTutor} />
+      ) : (
+        <Authentication setSchoolTutor={setSchoolTutor} />
+      )}
     </NotificationsProvider>
-    );
+  );
 }
-

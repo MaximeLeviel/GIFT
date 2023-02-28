@@ -1,6 +1,6 @@
 import * as httpService from "./httpService";
 import APICONSTANTS from "../constants/constants";
-import Admin from "../entities/Admin";
+import Admin from "../entities/SchoolTutor";
 
 export function getUsers() {
   return httpService

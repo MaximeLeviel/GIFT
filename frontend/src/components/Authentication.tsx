@@ -8,14 +8,13 @@ import {
 } from "@mantine/core";
 import { showNotification } from "@mantine/notifications";
 import { useForm } from "@mantine/form";
-import { upperFirst } from "@mantine/hooks";
 import * as userService from "../services/userService";
 import { AxiosError } from "axios";
-import Admin from "../entities/Admin";
+import Admin from "../entities/SchoolTutor";
 import "../styles/global.scss";
 
 interface AuthenticationProps {
-  setUser: (user: any) => void;
+  setSchoolTutor: (user: any) => void;
 }
 
 export default function Authentication(props: AuthenticationProps) {
@@ -76,7 +75,7 @@ export default function Authentication(props: AuthenticationProps) {
             },
           }),
         });
-        props.setUser(response);
+        props.setSchoolTutor(response);
       })
       .catch((error: AxiosError) => {
         if (!error.response) {
@@ -150,7 +149,7 @@ export default function Authentication(props: AuthenticationProps) {
 
   const login = () => {
     //TODO: To delete when the API calls are done
-    props.setUser({ name: "John Doe" });
+    props.setSchoolTutor({ firstName: "John", lastName: "Doe" });
     showNotification({
       title: "Logged in",
       message: "You have been logged in",
@@ -204,14 +203,15 @@ export default function Authentication(props: AuthenticationProps) {
             mt="xl"
             onClick={signIn}
             type={"submit"}
+            uppercase
           >
-            {upperFirst("Sign in")}
+            {"Sign in"}
           </Button>
           {
             //TODO: To delete when the API calls are done
           }
-          <Button fullWidth mt="xl" type={"submit"} onClick={login}>
-            {upperFirst("(DEV) Sign in as John Doe)")}
+          <Button fullWidth mt="xl" type={"submit"} onClick={login} uppercase>
+            {"(DEV) Sign in as John Doe)"}
           </Button>
         </Paper>
       </Container>
