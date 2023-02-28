@@ -31,6 +31,13 @@ public class StudentController {
 
     @PUT
     @Consumes("application/json")
+    public void updateAllStudents(List<Student> students) {
+        studentRepository.updateAll(students);
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Consumes("application/json")
     public void updateStudent(Student student) {
         studentRepository.update(student);
     }

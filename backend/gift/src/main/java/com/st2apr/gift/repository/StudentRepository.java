@@ -40,6 +40,14 @@ public class StudentRepository {
         }
     }
 
+    public void updateAll(List<Student> students) {
+        EntityTransaction transaction = startTransaction();
+        for (Student student : students) {
+            entityManager.merge(student);
+        }
+        endTransaction(transaction);
+    }
+
     public void update(Student student) {
         EntityTransaction transaction = startTransaction();
         entityManager.merge(student);
