@@ -7,7 +7,7 @@
         <class>com.st2apr.gift.model.Company</class>
         <class>com.st2apr.gift.model.Internship</class>
         <class>com.st2apr.gift.model.Student</class>
-        <class>com.st2apr.gift.model.Tutor</class>
+        <class>com.st2apr.gift.model.SchoolTutor</class>
 
         <properties>
             <property name="eclipselink.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/db"/>

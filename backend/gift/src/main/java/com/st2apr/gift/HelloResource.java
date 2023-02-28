@@ -17,23 +17,20 @@ public class HelloResource {
     public String hello() {
         CompanyRepository companyRepository = new CompanyRepository();
         Company company = new Company();
-        company.setId(10);
         company.setName("company name");
         company.setAddress("company address");
         company.setTutor("company tutor");
 
         InternshipRepository internshipRepository = new InternshipRepository();
         Internship internship = new Internship();
-        internship.setId(10);
         internship.setMissionDescription("mission description");
         internship.setVisitForm("visit form");
         internship.setComment("comment");
 
         StudentRepository studentRepository = new StudentRepository();
         Student student = new Student();
-        student.setId(10);
-        student.setFirstName("Student 144");
-        student.setLastName("last name");
+        student.setFirstName("Student first name");
+        student.setLastName("Student last name");
         student.setGroupName("group name");
         student.setCompany(company);
         student.setInternship(internship);

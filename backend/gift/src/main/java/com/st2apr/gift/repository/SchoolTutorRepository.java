@@ -1,31 +1,31 @@
 package com.st2apr.gift.repository;
 
-import com.st2apr.gift.model.Tutor;
+import com.st2apr.gift.model.SchoolTutor;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.*;
 
 @Stateless
-public class TutorRepository {
+public class SchoolTutorRepository {
     private final EntityManager entityManager;
 
-    public TutorRepository() {
+    public SchoolTutorRepository() {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         entityManager = entityManagerFactory.createEntityManager();
     }
 
-    public void create(Tutor tutor) {
+    public void create(SchoolTutor schoolTutor) {
         EntityTransaction transaction = startTransaction();
-        entityManager.persist(tutor);
+        entityManager.persist(schoolTutor);
         endTransaction(transaction);
     }
 
-    public Tutor findById(int id) {
-        return entityManager.find(Tutor.class, id);
+    public SchoolTutor findById(int id) {
+        return entityManager.find(SchoolTutor.class, id);
     }
 
-    public Tutor findByUsername(String username) {
-        TypedQuery<Tutor> query = entityManager.createNamedQuery("Tutor.findByUsername", Tutor.class);
-        query.setParameter("username", username);
+    public SchoolTutor findByEmail(String email) {
+        TypedQuery<SchoolTutor> query = entityManager.createNamedQuery("SchoolTutor.findByEmail", SchoolTutor.class);
+        query.setParameter("email", email);
         try {
             return query.getSingleResult();
         } catch (NoResultException e) {
@@ -33,15 +33,15 @@ public class TutorRepository {
         }
     }
 
-    public void update(Tutor tutor) {
+    public void update(SchoolTutor schoolTutor) {
         EntityTransaction transaction = startTransaction();
-        entityManager.merge(tutor);
+        entityManager.merge(schoolTutor);
         endTransaction(transaction);
     }
 
-    public void delete(Tutor tutor) {
+    public void delete(SchoolTutor schoolTutor) {
         EntityTransaction transaction = startTransaction();
-        entityManager.remove(entityManager.merge(tutor));
+        entityManager.remove(entityManager.merge(schoolTutor));
         endTransaction(transaction);
     }
 
