@@ -17,7 +17,7 @@ interface HeaderSimpleProps {
 
 export default function Navbar({ user, setUser }: HeaderSimpleProps) {
   return (
-    <Header height={60} mb={120}>
+    <Header height={60}>
       <Container id="navbar">
         <School size={28} color={"blue"} />
         <Group spacing={10}>
