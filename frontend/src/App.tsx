@@ -3,11 +3,11 @@ import Layout from "./Layout";
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Home from "./pages/Home";
-import Authentication from "./components/Authentication";
 import Login from "./pages/Login";
 
 export default function App() {
-  const [user, setUser] = useState(null);
+
+  const [schoolTutor, setSchoolTutor] = useState(null);
 
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
@@ -16,7 +16,7 @@ export default function App() {
 
           <Route path="/login" element={<Login />} />      
 
-          <Route path="/home" element={<Home setUser={setUser}/>} />
+          {/* <Route path="/home" element={<Home schoolTutor={schoolTutor} setSchoolTutor={setSchoolTutor} />} /> */}
 
         </Route>
       </Routes>
