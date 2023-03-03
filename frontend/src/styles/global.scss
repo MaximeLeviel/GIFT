@@ -8,6 +8,13 @@
   background-image: url("https://images.pexels.com/photos/8301240/pexels-photo-8301240.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
 }
 
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
 .highlight {
   position: relative;
   background-color: rgb(231, 245, 255, 1);
@@ -25,8 +32,8 @@
 .inner {
   display: flex;
   justify-content: space-between;
-  padding-top: $xl * 4;
-  padding-bottom: $xl * 4;
+  padding-top: $xl * 2;
+  padding-bottom: $xl * 2;
 }
 
 .content {

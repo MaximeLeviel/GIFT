@@ -1,4 +1,4 @@
-class Admin {
+class SchoolTutor {
   id: number | undefined;
   firstName: string | undefined;
   lastName: string | undefined;
@@ -12,4 +12,4 @@ class Admin {
   }
 }
 
-export default Admin;
+export default SchoolTutor;

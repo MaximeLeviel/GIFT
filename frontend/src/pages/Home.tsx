@@ -1,15 +1,53 @@
-import { Button, Container, Image, Text, Title } from "@mantine/core";
+import { Container, Divider, Image, Stack, Text, Title } from "@mantine/core";
+import Navbar from "../components/Navbar";
+import SchoolTutor from "../entities/SchoolTutor";
+import { Dispatch, SetStateAction } from "react";
+import Tables from "../components/Tables";
 
 interface HomeProps {
-  setUser: (user: any) => void;
+  schoolTutor: SchoolTutor;
+  setSchoolTutor: Dispatch<SetStateAction<null>>;
 }
 
-export default function Home(props: HomeProps) {
-  const logout = () => {
-    props.setUser(null);
-  };
+const students = [
+  {
+    id: 0,
+    firstName: "Edouard",
+    lastName: "Baer",
+    missionDescription: "",
+    comment: "Comment",
+    visitForm: "blblbl",
+  },
+  {
+    id: 1,
+    firstName: "Alizee",
+    lastName: "Poignant",
+    missionDescription: "blblbl",
+    comment: "Comment",
+    visitForm: "",
+  },
+  {
+    id: 2,
+    firstName: "Michael",
+    lastName: "Youn",
+    missionDescription: "",
+    comment: "Comment",
+    visitForm: "",
+  },
+  {
+    id: 3,
+    firstName: "Hugo",
+    lastName: "Stephan",
+    missionDescription: "blblbl",
+    comment: "Comment",
+    visitForm: "blblbl",
+  },
+];
+
+export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
   return (
-    <div>
+    <>
+      <Navbar user={schoolTutor} setUser={setSchoolTutor} />
       <Container>
         <div className="inner">
           <div className="content">
@@ -33,10 +71,12 @@ export default function Home(props: HomeProps) {
             alt="student-and-professor"
           />
         </div>
-        <Button variant="outline" onClick={logout}>
-          Log out
-        </Button>
+        <Stack>
+          <Title>Students list:</Title>
+          <Divider />
+          <Tables elements={students} />
+        </Stack>
       </Container>
-    </div>
+    </>
   );
 }
