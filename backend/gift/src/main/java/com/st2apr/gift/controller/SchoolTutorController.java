@@ -17,8 +17,17 @@ public class SchoolTutorController {
 
     @GET()
     @Produces("application/json")
-    public List<SchoolTutor> getAllTutors() {
-        return schoolTutorRepository.findAllTutors();
+    public List<SchoolTutor> getAllTutors(@HeaderParam("AuthToken") String token) {
+        try {
+            String verify = Jwt.getTokenFromHeader(token);
+            if (verify == null) {
+                throw new NoResultException("Invalid AuthToken");
+            } else {
+                return schoolTutorRepository.findAllTutors();
+            }
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     @GET()

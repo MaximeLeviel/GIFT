@@ -39,7 +39,7 @@ public class Jwt {
         return null;
     }
 
-    public static String getTokenFromHeader(@HeaderParam("AuthToken") String token){
+    public static String getTokenFromHeader(String token){
         try {
             if (token.isEmpty()) {
                 throw new NoResultException("No authentification headers");
