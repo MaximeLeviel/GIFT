@@ -26,7 +26,12 @@ export default function App() {
           ( <Navigate to="/login" /> )
         }
         />
-        <Route path="/*" element={<Layout />} />
+        <Route path="/*" element={ 
+          schoolTutor ? 
+          ( <Navigate to="/home" /> ) 
+          : 
+          (<Login setSchoolTutor={setSchoolTutor} />)
+        } />
       </Routes>
     </MantineProvider>
   );
