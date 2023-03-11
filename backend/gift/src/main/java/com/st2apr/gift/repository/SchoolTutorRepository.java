@@ -27,20 +27,22 @@ public class SchoolTutorRepository {
         return query.getResultList();
     }
 
-    public SchoolTutor findById(int id) {
-        return entityManager.find(SchoolTutor.class, id);
-    }
-
-    public SchoolTutor login(String email, String password) {
-        TypedQuery<SchoolTutor> query = entityManager.createNamedQuery("SchoolTutor.login", SchoolTutor.class);
+    public SchoolTutor findByEmail(String email) {
+        TypedQuery<SchoolTutor> query = entityManager.createNamedQuery("SchoolTutor.findByEmail", SchoolTutor.class);
         query.setParameter("email", email);
-        query.setParameter("password", password);
         try {
             return query.getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
     }
+
+    public SchoolTutor findById(int id) {
+        return entityManager.find(SchoolTutor.class, id);
+    }
+
+
+
 
     public void update(SchoolTutor schoolTutor) {
         EntityTransaction transaction = startTransaction();

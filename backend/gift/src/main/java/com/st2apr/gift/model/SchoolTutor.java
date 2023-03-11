@@ -9,7 +9,7 @@ import java.util.Objects;
 @NamedQueries({
         @NamedQuery(name = "SchoolTutor.findAllTutors", query = "SELECT s FROM SchoolTutor s"),
         @NamedQuery(name = "SchoolTutor.findByEmail", query = "SELECT s FROM SchoolTutor s WHERE s.email = :email"),
-        @NamedQuery(name = "SchoolTutor.login", query = "SELECT s FROM SchoolTutor s WHERE s.firstName = :email AND s.password = :password"),
+        @NamedQuery(name = "SchoolTutor.login", query = "SELECT s FROM SchoolTutor s WHERE s.email = :email AND s.password = :password"),
 })
 public class SchoolTutor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
