@@ -1,5 +1,4 @@
 import { MantineProvider } from "@mantine/core";
-import Layout from "./Layout";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import Home from "./pages/Home";
@@ -26,7 +25,12 @@ export default function App() {
           ( <Navigate to="/login" /> )
         }
         />
-        <Route path="/*" element={<Layout />} />
+        <Route path="/*" element={ 
+          schoolTutor ? 
+          ( <Navigate to="/home" /> ) 
+          : 
+          (<Login setSchoolTutor={setSchoolTutor} />)
+        } />
       </Routes>
     </MantineProvider>
   );
