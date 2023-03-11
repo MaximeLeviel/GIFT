@@ -41,6 +41,7 @@ public class SchoolTutorController {
         try {
             SchoolTutor tutor = schoolTutorRepository.findByEmail(login.email);
             if (login.password.equals(tutor.getPassword())) {
+                String token = Jwt.jwtToken(login.email);
                 return Response.status(200).entity("You are successfully logged in").header("Token", Jwt.jwtToken(login.email)).build();
             } else {
                 throw new NoResultException();
