@@ -6,7 +6,6 @@ import Tables from "../components/Tables";
 
 interface HomeProps {
   schoolTutor: SchoolTutor;
-  // schoolTutor: SchoolTutor | null;
   setSchoolTutor: Dispatch<SetStateAction<null>>;
 }
 
@@ -46,7 +45,6 @@ const students = [
 ];
 
 export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
-  // if (schoolTutor) return 
   return (
   <>
     <>
