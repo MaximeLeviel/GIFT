@@ -1,13 +1,18 @@
 import { Container, Divider, Image, Stack, Text, Title } from "@mantine/core";
 import Navbar from "../components/Navbar";
 import SchoolTutor from "../entities/SchoolTutor";
-import { Dispatch, SetStateAction } from "react";
+import Student from "../entities/Student";
+
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Tables from "../components/Tables";
+import StudentsService from "../services/studentService"
 
 interface HomeProps {
   schoolTutor: SchoolTutor;
   setSchoolTutor: Dispatch<SetStateAction<null>>;
 }
+
+
 
 const students = [
   {
@@ -45,6 +50,21 @@ const students = [
 ];
 
 export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
+  const [liststudents, setStudents] = useState<any[]>()
+
+useEffect(() => {
+  const fetchPortfolios = async () => {
+    try {
+      const res = await StudentsService.getStudents()
+      console.log(res)
+      setStudents(res)
+    } catch (err) {
+      console.log("Couldn't fetch students")
+    }
+  }
+  fetchPortfolios()
+}, [liststudents])
+
   return (
     <>
       <>
@@ -75,6 +95,7 @@ export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
           <Stack>
             <Title>Students list:</Title>
             <Divider />
+            {(liststudents && <div>{liststudents.map((student) => student.firstName)}</div>)}
             <Tables elements={students} />
           </Stack>
         </Container>
@@ -82,3 +103,7 @@ export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
     </>
   );
 }
+function setLoading(arg0: boolean) {
+  throw new Error("Function not implemented.");
+}
+
