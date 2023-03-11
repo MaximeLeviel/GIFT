@@ -39,7 +39,7 @@ export default function Tables({ elements }: StudentsListProps) {
               : { from: "red", to: "pink" }
           }
         >
-          {upperFirst(element.visitForm ? "ok" : "not ok")}
+          {upperFirst(element.missionDescription ? "ok" : "not ok")}
         </Badge>
       </td>
       <td>{element.comment}</td>
