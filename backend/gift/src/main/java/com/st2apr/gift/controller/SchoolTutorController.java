@@ -40,11 +40,15 @@ public class SchoolTutorController {
     public Response login(Logindetails login) {
         try {
             SchoolTutor tutor = schoolTutorRepository.findByEmail(login.email);
-            if (login.password.equals(tutor.getPassword())) {
-                String token = Jwt.jwtToken(login.email);
-                return Response.status(200).entity("You are successfully logged in").header("Token", Jwt.jwtToken(login.email)).build();
+            if (tutor == null){
+                throw new NoResultException("No tutors with that email");
             } else {
-                throw new NoResultException();
+                if (login.password.equals(tutor.getPassword())) {
+                    String token = Jwt.jwtToken(login.email);
+                    return Response.status(200).entity("You are successfully logged in").header("AuthToken", token).build();
+                } else {
+                    throw new NoResultException();
+                }
             }
         } catch (NoResultException e) {
             return null;

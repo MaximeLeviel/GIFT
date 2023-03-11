@@ -3,9 +3,12 @@ package com.st2apr.gift.jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.InvalidClaimException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import jakarta.persistence.NoResultException;
+import jakarta.ws.rs.HeaderParam;
 
 import java.util.Date;
 import java.util.UUID;
@@ -36,4 +39,20 @@ public class Jwt {
         return null;
     }
 
+    public static String getTokenFromHeader(@HeaderParam("AuthToken") String token){
+        try {
+            if (token.isEmpty()) {
+                throw new NoResultException("No authentification headers");
+            } else {
+                String userId = Jwt.verifyToken(token);
+                if (userId.isEmpty()) {
+                    throw new InvalidClaimException("Invalid token");
+                } else {
+                    return userId;
+                }
+            }
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }
