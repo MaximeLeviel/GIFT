@@ -69,8 +69,7 @@ public class SchoolTutorController {
     @Produces("application/json")
     @HeaderParam("AuthToken")
     public Response login(Logindetails login, @HeaderParam("AuthToken") String authToken) {
-
-        if (!authToken.isEmpty()) {
+        if (authToken != null) {
             return Response.status(200).entity("You are already logged in").build();
         }
 
