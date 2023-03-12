@@ -23,7 +23,7 @@ public class Student {
     @Column(name = "group_name", nullable = false, length = -1)
     private String groupName;
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private SchoolTutor tutor;
+    private SchoolTutor schoolTutor;
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Internship internship;
     @ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
@@ -60,12 +60,8 @@ public class Student {
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
-    public SchoolTutor getTutor() {
-        return tutor;
-    }
-    public void setTutor(SchoolTutor tutor) {
-        this.tutor = tutor;
-    }
+    public SchoolTutor getTutor() { return schoolTutor; }
+    public void setTutor(SchoolTutor tutor) { this.schoolTutor = tutor; }
 
     public Internship getInternship() {
         return internship;
