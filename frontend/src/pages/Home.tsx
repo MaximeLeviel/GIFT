@@ -1,16 +1,34 @@
-import { Container, Divider, Image, Stack, Text, Title } from "@mantine/core";
+import {
+  Button,
+  Container,
+  Divider,
+  Image,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 import Navbar from "../components/Navbar";
 import SchoolTutor from "../entities/SchoolTutor";
 import Student from "../entities/Student";
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Tables from "../components/Tables";
-import StudentsService from "../services/studentService"
+import StudentsService from "../services/studentService";
+import { showNotification } from "@mantine/notifications";
+import styled from "styled-components"
+import { Link } from "react-router-dom";
 
 interface HomeProps {
   schoolTutor: SchoolTutor;
   setSchoolTutor: Dispatch<SetStateAction<null>>;
 }
+
+const ButtonWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0rem 10rem 0rem ;
+`
 
 
 
@@ -50,25 +68,25 @@ const students = [
 ];
 
 export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
-  const [liststudents, setStudents] = useState<any[]>()
+  const [liststudents, setStudents] = useState<any[]>();
 
-useEffect(() => {
-  const fetchPortfolios = async () => {
-    try {
-      const res = await StudentsService.getStudents()
-      console.log(res)
-      setStudents(res)
-    } catch (err) {
-      console.log("Couldn't fetch students")
-    }
-  }
-  fetchPortfolios()
-}, [liststudents])
+  useEffect(() => {
+    const fetchPortfolios = async () => {
+      try {
+        const res = await StudentsService.getStudents();
+        console.log(res);
+        setStudents(res);
+      } catch (err) {
+        console.log("Couldn't fetch students");
+      }
+    };
+    fetchPortfolios();
+  }, [liststudents]);
 
   return (
     <>
       <>
-        <Navbar user={schoolTutor} setUser={setSchoolTutor} />
+        <Navbar user={schoolTutor} setUser={setSchoolTutor}/>
         <Container>
           <div className="inner">
             <div className="content">
@@ -95,9 +113,23 @@ useEffect(() => {
           <Stack>
             <Title>Students list:</Title>
             <Divider />
-            {(liststudents && <div>{liststudents.map((student) => student.firstName)}</div>)}
+            {liststudents && (
+              <div>{liststudents.map((student) => student.firstName)}</div>
+            )}
             <Tables elements={students} />
           </Stack>
+            <ButtonWrapper>
+              <Link to="/students/newstudent">
+                <Button
+                  variant="gradient"
+                  gradient={{ from: "red", to: "pink" }}
+                  uppercase
+                >
+                  Add new student
+                </Button>
+              </Link>
+            </ButtonWrapper>
+          
         </Container>
       </>
     </>
@@ -106,4 +138,3 @@ useEffect(() => {
 function setLoading(arg0: boolean) {
   throw new Error("Function not implemented.");
 }
-
