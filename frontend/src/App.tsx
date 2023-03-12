@@ -1,14 +1,15 @@
 import { MantineProvider } from "@mantine/core";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useLocalStorage } from "./hooks/useLocalStorage"; 
+import { useLocalStorage } from "./hooks/useLocalStorage";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
 import { Notifications } from "@mantine/notifications";
 import Details from "./pages/Details";
-import CreateStudent from "./pages/CreateStudent";
+import UpdateStudent from "./pages/UpdateStudent";
+import Login from "./pages/Login";
 
 export default function App() {
   const [schoolTutor, setSchoolTutor] = useLocalStorage("schoolTutor", null);
+  const [token, setToken] = useLocalStorage("token", null);
 
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
@@ -28,7 +29,7 @@ export default function App() {
           path="/students/create"
           element={
             schoolTutor ? (
-              <CreateStudent
+              <Details
                 schoolTutor={schoolTutor}
                 setSchoolTutor={setSchoolTutor}
               />
@@ -41,7 +42,7 @@ export default function App() {
           path="/students/:id"
           element={
             schoolTutor ? (
-              <Details
+              <UpdateStudent
                 schoolTutor={schoolTutor}
                 setSchoolTutor={setSchoolTutor}
               />
@@ -57,18 +58,14 @@ export default function App() {
             schoolTutor ? (
               <Navigate to="/home" />
             ) : (
-              <Login setSchoolTutor={setSchoolTutor} />
+              <Login setSchoolTutor={setSchoolTutor} setToken={setToken} />
             )
           }
         />
         <Route
           path="/*"
           element={
-            schoolTutor ? (
-              <Navigate to="/home" />
-            ) : (
-              <Navigate to="/login" />
-            )
+            schoolTutor ? <Navigate to="/home" /> : <Navigate to="/login" />
           }
         />
       </Routes>

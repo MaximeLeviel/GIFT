@@ -12,35 +12,49 @@ import { DateInput } from "@mantine/dates";
 import Navbar from "../components/Navbar";
 import SchoolTutor from "../entities/SchoolTutor";
 import { Dispatch, SetStateAction, useState } from "react";
-import { Reload, X } from "tabler-icons-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Plus, X } from "tabler-icons-react";
+import { useNavigate } from "react-router-dom";
+import Student from "../entities/Student";
+import StudentsService from "../services/studentService";
 
 interface DetailsProps {
   schoolTutor: SchoolTutor;
   setSchoolTutor: Dispatch<SetStateAction<null>>;
+  currentStudent?: Student;
 }
 
-export default function Details({ schoolTutor, setSchoolTutor }: DetailsProps) {
-  let { id } = useParams();
-  //TODO : make API call to get user details (add data to state)
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [groupName, setGroupName] = useState("");
-  const [companyName, setCompanyName] = useState("");
-  const [companyAddress, setCompanyAddress] = useState("");
-  const [companyTutor, setCompanyTutor] = useState("");
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
-  const [missionDesc, setMissionDesc] = useState("");
-  const [comment, setComment] = useState("");
-  const [formVisit, setFormVisit] = useState("");
+const emptyStudent = {} as Student;
+
+export default function Details({
+  schoolTutor,
+  setSchoolTutor,
+  currentStudent,
+}: DetailsProps) {
+
+  const [student, setStudent] = useState(currentStudent ?? emptyStudent);
   let navigate = useNavigate();
 
-  const updateUser = () => {
-    //TODO : make API call to update user
-    // using : firstName, lastName, groupName, companyName, companyAddress, companyTutor, startDate, endDate, missionDesc, comment, formVisit
+  const createStudent = async () => {
+    if(currentStudent) {
+      await StudentsService.updateStudent(student);
+    }
+    else {
+      await StudentsService.createStudent(student);
+    }
     navigate("/home");
   };
+
+  const onChange = (field: string, value: string) => {
+    setStudent({ ...student, [field]: value });
+  };
+
+  const setStartDate = (Date: Date) => {
+    setStudent({ ...student, startDate: Date });
+  }
+
+  const setEndDate = (Date: Date) => {
+    setStudent({ ...student, endDate: Date });
+  }
 
   return (
     <>
@@ -51,28 +65,22 @@ export default function Details({ schoolTutor, setSchoolTutor }: DetailsProps) {
             <Text mb={5}>Student details:</Text>
             <Paper shadow="md" p="xl" withBorder>
               <TextInput
-                value={id}
-                disabled
-                label="Id"
-                inputWrapperOrder={["label", "input", "description"]}
-              />
-              <TextInput
-                value={firstName}
-                onChange={(e) => setFirstName(e.currentTarget.value)}
+                value={student.firstName}
+                onChange={(e) => onChange(e.currentTarget.value, "firstName")}
                 label="First name"
                 placeholder="First name"
                 inputWrapperOrder={["label", "input", "description"]}
               />
               <TextInput
-                value={lastName}
-                onChange={(e) => setLastName(e.currentTarget.value)}
+                value={student.lastName}
+                onChange={(e) => onChange(e.currentTarget.value, "lastName")}
                 label="Last name"
                 placeholder="Last name"
                 inputWrapperOrder={["label", "input", "description"]}
               />
               <TextInput
-                value={groupName}
-                onChange={(e) => setGroupName(e.currentTarget.value)}
+                value={student.groupName}
+                onChange={(e) => onChange(e.currentTarget.value, "groupName")}
                 label="Group name"
                 placeholder="Group name"
                 inputWrapperOrder={["label", "input", "description"]}
@@ -83,28 +91,28 @@ export default function Details({ schoolTutor, setSchoolTutor }: DetailsProps) {
             <Text mb={5}>Company details:</Text>
             <Paper shadow="md" p="xl" withBorder>
               <TextInput
-                value={companyName}
-                onChange={(e) => setCompanyName(e.currentTarget.value)}
+                value={student.companyName}
+                onChange={(e) => onChange(e.currentTarget.value, "companyName")}
                 label="Name"
                 placeholder="Name"
                 inputWrapperOrder={["label", "input", "description"]}
               />
               <TextInput
-                value={companyAddress}
-                onChange={(e) => setCompanyAddress(e.currentTarget.value)}
+                value={student.companyAddress}
+                onChange={(e) => onChange(e.currentTarget.value, "companyAddress")}
                 label="Address"
                 placeholder="Address"
                 inputWrapperOrder={["label", "input", "description"]}
               />
               <TextInput
-                value={companyTutor}
-                onChange={(e) => setCompanyTutor(e.currentTarget.value)}
+                value={student.companyTutor}
+                onChange={(e) => onChange(e.currentTarget.value, "companyTutor")}
                 label="Tutor"
                 placeholder="Tutor"
                 inputWrapperOrder={["label", "input", "description"]}
               />
               <DateInput
-                value={startDate}
+                value={student.startDate}
                 onChange={setStartDate}
                 label="Start date"
                 placeholder="Start date"
@@ -112,7 +120,7 @@ export default function Details({ schoolTutor, setSchoolTutor }: DetailsProps) {
                 mx="auto"
               />
               <DateInput
-                value={endDate}
+                value={student.endDate}
                 onChange={setEndDate}
                 label="End date"
                 placeholder="End date"
@@ -126,22 +134,22 @@ export default function Details({ schoolTutor, setSchoolTutor }: DetailsProps) {
             <Paper shadow="md" p="xl" withBorder>
               <Textarea
                 autosize
-                value={missionDesc}
-                onChange={(e) => setMissionDesc(e.currentTarget.value)}
+                value={student.missionDescription}
+                onChange={(e) => onChange(e.currentTarget.value, "missionDescription")}
                 placeholder="Mission description"
                 label="Mission description"
               />
               <Textarea
                 autosize
-                value={comment}
-                onChange={(e) => setComment(e.currentTarget.value)}
+                value={student.comment}
+                onChange={(e) => onChange(e.currentTarget.value, "comment")}
                 placeholder="Comment"
                 label="Comment"
               />
               <Textarea
                 autosize
-                value={formVisit}
-                onChange={(e) => setFormVisit(e.currentTarget.value)}
+                value={student.visitForm}
+                onChange={(e) => onChange(e.currentTarget.value, "visitForm")}
                 placeholder="Visit form"
                 label="Visit form"
               />
@@ -157,11 +165,11 @@ export default function Details({ schoolTutor, setSchoolTutor }: DetailsProps) {
             Cancel
           </Button>
           <Button
-            leftIcon={<Reload size="1rem" />}
-            color={"cyan"}
-            onClick={updateUser}
+            leftIcon={<Plus size="1rem" />}
+            color={"green"}
+            onClick={createStudent}
           >
-            Update student
+            Create student
           </Button>
         </Group>
       </Container>

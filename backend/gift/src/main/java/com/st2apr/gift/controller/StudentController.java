@@ -95,4 +95,20 @@ public class StudentController {
             return;
         }
     }
+
+    @DELETE
+    @Path("/{id}")
+    public void deleteStudent(@PathParam("id") int id, @HeaderParam("AuthToken") String token) {
+        try {
+            String userEmail = Jwt.getAuthenticatedUser(token);
+            if (userEmail == null) {
+                throw new NoResultException("Invalid AuthToken");
+            }
+
+            studentRepository.deleteById(id);
+
+        } catch (Exception e) {
+            return;
+        }
+    }
 }

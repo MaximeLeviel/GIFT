@@ -8,6 +8,9 @@ export function get(resourceName, params = {}) {
     method: "get",
     url: `${API_BASE_URL}/${resourceName}`,
     params: params,
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
   };
   return axios(config);
 }
@@ -17,6 +20,9 @@ export function post(resourceName, data) {
     method: "post",
     url: `${API_BASE_URL}/${resourceName}`,
     data: data,
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
   };
   return axios(config);
 }
@@ -26,6 +32,9 @@ export function put(resourceName, data) {
     method: "put",
     url: `${API_BASE_URL}/${resourceName}`,
     data: data,
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
   };
   return axios(config);
 }
@@ -34,6 +43,9 @@ export function destroy(resourceName, id) {
   let config = {
     method: "delete",
     url: `${API_BASE_URL}/${resourceName}/${id}`,
+    headers: {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
   };
   return axios(config);
 }
