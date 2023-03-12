@@ -9,28 +9,16 @@ import {
 } from "@mantine/core";
 import Navbar from "../components/Navbar";
 import SchoolTutor from "../entities/SchoolTutor";
-import Student from "../entities/Student";
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Tables from "../components/Tables";
 import StudentsService from "../services/studentService";
-import { showNotification } from "@mantine/notifications";
-import styled from "styled-components"
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface HomeProps {
   schoolTutor: SchoolTutor;
   setSchoolTutor: Dispatch<SetStateAction<null>>;
 }
-
-const ButtonWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 2rem 0rem 10rem 0rem ;
-`
-
-
 
 const students = [
   {
@@ -69,6 +57,7 @@ const students = [
 
 export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
   const [liststudents, setStudents] = useState<any[]>();
+  let navigate = useNavigate();
 
   useEffect(() => {
     const fetchPortfolios = async () => {
@@ -85,53 +74,46 @@ export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
 
   return (
     <>
-      <>
-        <Navbar user={schoolTutor} setUser={setSchoolTutor}/>
-        <Container>
-          <div className="inner">
-            <div className="content">
-              <Title className="title">
-                Welcome to the <span className="highlight">tutor's</span> portal
-              </Title>
-              <Text color="dimmed" mt="md">
-                myEfrei is your new extranet platform. It will gradually replace
-                the Group Efrei campus extranet and will eventually become your
-                single point of access to applications and partner sites.
-                <br />
-                <br />
-                The site will evolve in the near future and the functionalities
-                will be expanded over the months...
-              </Text>
-            </div>
-            <Image
-              radius={"md"}
-              src="https://images.pexels.com/photos/8197543/pexels-photo-8197543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              className="image"
-              alt="student-and-professor"
-            />
+      <Navbar user={schoolTutor} setUser={setSchoolTutor} />
+      <Container>
+        <div className="inner">
+          <div className="content">
+            <Title className="title">
+              Welcome to the <span className="highlight">tutor's</span> portal
+            </Title>
+            <Text color="dimmed" mt="md">
+              myEfrei is your new extranet platform. It will gradually replace
+              the Group Efrei campus extranet and will eventually become your
+              single point of access to applications and partner sites.
+              <br />
+              <br />
+              The site will evolve in the near future and the functionalities
+              will be expanded over the months...
+            </Text>
           </div>
-          <Stack>
-            <Title>Students list:</Title>
-            <Divider />
-            {liststudents && (
-              <div>{liststudents.map((student) => student.firstName)}</div>
-            )}
-            <Tables elements={students} />
-          </Stack>
-            <ButtonWrapper>
-              <Link to="/students/newstudent">
-                <Button
-                  variant="gradient"
-                  gradient={{ from: "red", to: "pink" }}
-                  uppercase
-                >
-                  Add new student
-                </Button>
-              </Link>
-            </ButtonWrapper>
-          
-        </Container>
-      </>
+          <Image
+            radius={"md"}
+            src="https://images.pexels.com/photos/8197543/pexels-photo-8197543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            className="image"
+            alt="student-and-professor"
+          />
+        </div>
+        <Stack>
+          <Title>Students list:</Title>
+          <Button
+            variant="gradient"
+            gradient={{ from: "teal", to: "lime" }}
+            onClick={() => navigate("/students/create")}
+          >
+            Create new student
+          </Button>
+          <Divider />
+          {liststudents && (
+            <div>{liststudents.map((student) => student.firstName)}</div>
+          )}
+          <Tables elements={students} />
+        </Stack>
+      </Container>
     </>
   );
 }
