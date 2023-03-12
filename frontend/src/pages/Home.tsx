@@ -13,7 +13,7 @@ import SchoolTutor from "../entities/SchoolTutor";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Tables from "../components/Tables";
 import StudentsService from "../services/studentService";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 interface HomeProps {
   schoolTutor: SchoolTutor;
@@ -57,7 +57,6 @@ const students = [
 
 export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
   const [liststudents, setStudents] = useState<any[]>();
-  let navigate = useNavigate();
 
   useEffect(() => {
     const fetchPortfolios = async () => {
@@ -100,13 +99,11 @@ export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
         </div>
         <Stack>
           <Title>Students list:</Title>
-          <Button
-            variant="gradient"
-            gradient={{ from: "teal", to: "lime" }}
-            onClick={() => navigate("/students/create")}
-          >
-            Create new student
-          </Button>
+          <Link to={"/students/create"}>
+            <Button variant="gradient" gradient={{ from: "teal", to: "lime" }}>
+              Create new student
+            </Button>
+          </Link>
           <Divider />
           {liststudents && (
             <div>{liststudents.map((student) => student.firstName)}</div>
