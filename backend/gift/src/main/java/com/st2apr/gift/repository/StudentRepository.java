@@ -23,6 +23,8 @@ public class StudentRepository {
 
     public List<Student> findAllStudents() {
         TypedQuery<Student> query = entityManager.createNamedQuery("Student.findAllStudents", Student.class);
+        System.out.println("Results");
+        System.out.println(query.getResultList());
         return query.getResultList();
     }
 
