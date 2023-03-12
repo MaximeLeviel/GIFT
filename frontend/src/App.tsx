@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { Notifications } from "@mantine/notifications";
 import Details from "./pages/Details";
-import CreateStudent from "./pages/CreateStudent";
+import UpdateStudent from "./pages/UpdateStudent";
 
 export default function App() {
   const [schoolTutor, setSchoolTutor] = useLocalStorage("schoolTutor", null);
@@ -28,7 +28,7 @@ export default function App() {
           path="/students/create"
           element={
             schoolTutor ? (
-              <CreateStudent
+              <Details
                 schoolTutor={schoolTutor}
                 setSchoolTutor={setSchoolTutor}
               />
@@ -41,7 +41,7 @@ export default function App() {
           path="/students/:id"
           element={
             schoolTutor ? (
-              <Details
+              <UpdateStudent
                 schoolTutor={schoolTutor}
                 setSchoolTutor={setSchoolTutor}
               />

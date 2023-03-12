@@ -1,26 +1,21 @@
 import { Badge, Button, Group, Table } from "@mantine/core";
 import { upperFirst } from "@mantine/hooks";
 import { Link } from "react-router-dom";
+import Student from "../entities/Student";
+import StudentsService from "../services/studentService";
 
 interface StudentsListProps {
-  elements: {
-    id: number;
-    lastName: string;
-    firstName: string;
-    missionDescription: string;
-    comment: string;
-    visitForm: string;
-  }[];
+  elements: Student[];
 }
 
 export default function Tables({ elements }: StudentsListProps) {
-  function removeUser(id: number) {
-    //TODO: remove user from the list with the given id
+  async function removeStudent(id: number) {
+    const res = await StudentsService.removeStudent(id);
   }
 
   const rows = elements.map((element) => (
     <tr key={element.id}>
-      <td>{element.lastName.toUpperCase()}</td>
+      <td>{element.lastName?.toUpperCase()}</td>
       <td>{element.firstName}</td>
       <td>
         <Badge
@@ -62,7 +57,7 @@ export default function Tables({ elements }: StudentsListProps) {
             variant="gradient"
             gradient={{ from: "red", to: "red" }}
             uppercase
-            onClick={() => removeUser(element.id)}
+            onClick={() => removeStudent(element.id!)}
           >
             Remove
           </Button>

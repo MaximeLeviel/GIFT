@@ -62,6 +62,13 @@ public class StudentRepository {
         endTransaction(transaction);
     }
 
+    public void deleteById(int id) {
+        EntityTransaction transaction = startTransaction();
+        Student student = entityManager.find(Student.class, id);
+        entityManager.remove(student);
+        endTransaction(transaction);
+    }
+
     private EntityTransaction startTransaction() {
         EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();

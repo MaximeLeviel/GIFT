@@ -14,49 +14,15 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Tables from "../components/Tables";
 import StudentsService from "../services/studentService";
 import { Link } from "react-router-dom";
+import Student from "../entities/Student";
 
 interface HomeProps {
   schoolTutor: SchoolTutor;
   setSchoolTutor: Dispatch<SetStateAction<null>>;
 }
 
-const students = [
-  {
-    id: 0,
-    firstName: "Edouard",
-    lastName: "Baer",
-    missionDescription: "",
-    comment: "Comment1",
-    visitForm: "blblbl",
-  },
-  {
-    id: 1,
-    firstName: "Alizee",
-    lastName: "Poignant",
-    missionDescription: "blblbl",
-    comment: "Comment2",
-    visitForm: "",
-  },
-  {
-    id: 2,
-    firstName: "Michael",
-    lastName: "Youn",
-    missionDescription: "",
-    comment: "Example comment",
-    visitForm: "",
-  },
-  {
-    id: 3,
-    firstName: "Hugo",
-    lastName: "Stephan",
-    missionDescription: "blblbl",
-    comment: "Ready",
-    visitForm: "blblbl",
-  },
-];
-
 export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
-  const [liststudents, setStudents] = useState<any[]>();
+  const [liststudents, setStudents] = useState<Student[]>([] as Student[]);
 
   useEffect(() => {
     const fetchPortfolios = async () => {
@@ -108,7 +74,7 @@ export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
           {liststudents && (
             <div>{liststudents.map((student) => student.firstName)}</div>
           )}
-          <Tables elements={students} />
+          <Tables elements={liststudents} />
         </Stack>
       </Container>
     </>
