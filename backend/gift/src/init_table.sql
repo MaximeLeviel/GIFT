@@ -38,6 +38,23 @@ CREATE TABLE student
     group_name    VARCHAR NOT NULL,
     internship_id INT     NOT NULL,
     company_id    INT     NOT NULL,
+    FOREIGN KEY (school_tutor_id) REFERENCES school_tutor (id),
     FOREIGN KEY (internship_id) REFERENCES internship (id),
     FOREIGN KEY (company_id) REFERENCES company (id)
 );
+
+INSERT INTO school_tutor (first_name, last_name, email, password)
+VALUES ('John', 'Tutor', 'john.tutor@intervenants-efrei.net', 'password'),
+       ('Jenna', 'Teacher', 'jeann.teacher@intervenants-efrei.net', 'password');
+
+INSERT INTO internship (mission_description, comment, visit_form)
+VALUES ('Stage développeur Fullstack', 'Le maître de stage est un ancien de l Efrei', 'Yes'),
+       ('Stage Data Engineering', 'Le maître de stage est un ancien de l Efrei', 'Yes');
+INSERT INTO company (id, name, address, tutor, start_date, end_date)
+VALUES ()
+
+INSERT INTO student (first_name, last_name, group_name, internship_id, company_id)
+VALUES ('John', 'Student', 'M1', 1,1),
+       ('Marie', 'Apprentice', 'M2 Alt.', 2,2);
+
+
