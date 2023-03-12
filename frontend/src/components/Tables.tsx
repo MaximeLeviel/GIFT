@@ -1,4 +1,4 @@
-import { Badge, Button, Table } from "@mantine/core";
+import { Badge, Button, Group, Table } from "@mantine/core";
 import { upperFirst } from "@mantine/hooks";
 import { Link } from "react-router-dom";
 
@@ -14,6 +14,10 @@ interface StudentsListProps {
 }
 
 export default function Tables({ elements }: StudentsListProps) {
+  function removeUser(id: number) {
+    //TODO: remove user from the list with the given id
+  }
+
   const rows = elements.map((element) => (
     <tr key={element.id}>
       <td>{element.lastName.toUpperCase()}</td>
@@ -44,15 +48,25 @@ export default function Tables({ elements }: StudentsListProps) {
       </td>
       <td>{element.comment}</td>
       <td>
-        <Link to={"/students/" + element.id}>
+        <Group>
+          <Link to={"/students/" + element.id}>
+            <Button
+              variant="gradient"
+              gradient={{ from: "indigo", to: "cyan" }}
+              uppercase
+            >
+              Edit
+            </Button>
+          </Link>
           <Button
             variant="gradient"
-            gradient={{ from: "indigo", to: "cyan" }}
+            gradient={{ from: "red", to: "red" }}
             uppercase
+            onClick={() => removeUser(element.id)}
           >
-            Edit
+            Remove
           </Button>
-        </Link>
+        </Group>
       </td>
     </tr>
   ));
