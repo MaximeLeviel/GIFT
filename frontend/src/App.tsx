@@ -1,6 +1,6 @@
 import { MantineProvider } from "@mantine/core";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useState } from "react";
+import { useLocalStorage } from "./hooks/useLocalStorage"; 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import { Notifications } from "@mantine/notifications";
@@ -8,22 +8,12 @@ import Details from "./pages/Details";
 import CreateStudent from "./pages/CreateStudent";
 
 export default function App() {
-  const [schoolTutor, setSchoolTutor] = useState(null);
+  const [schoolTutor, setSchoolTutor] = useLocalStorage("schoolTutor", null);
 
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <Notifications position={"top-right"} zIndex={3015} />
       <Routes>
-        <Route
-          path="/login"
-          element={
-            schoolTutor ? (
-              <Navigate to="/home" />
-            ) : (
-              <Login setSchoolTutor={setSchoolTutor} />
-            )
-          }
-        />
         <Route
           path="/home"
           element={
@@ -60,13 +50,24 @@ export default function App() {
             )
           }
         />
+        {/* Redirect from /login to /home if already connected */}
+        <Route
+          path="/login"
+          element={
+            schoolTutor ? (
+              <Navigate to="/home" />
+            ) : (
+              <Login setSchoolTutor={setSchoolTutor} />
+            )
+          }
+        />
         <Route
           path="/*"
           element={
             schoolTutor ? (
               <Navigate to="/home" />
             ) : (
-              <Login setSchoolTutor={setSchoolTutor} />
+              <Navigate to="/login" />
             )
           }
         />
