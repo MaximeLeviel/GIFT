@@ -22,7 +22,7 @@ interface HomeProps {
 
 const students = [
   {
-    id: 0,
+    id: "0",
     firstName: "Edouard",
     lastName: "Baer",
     missionDescription: "",
@@ -30,7 +30,7 @@ const students = [
     visitForm: "blblbl",
   },
   {
-    id: 1,
+    id: "1",
     firstName: "Alizee",
     lastName: "Poignant",
     missionDescription: "blblbl",
@@ -38,7 +38,7 @@ const students = [
     visitForm: "",
   },
   {
-    id: 2,
+    id: "2",
     firstName: "Michael",
     lastName: "Youn",
     missionDescription: "",
@@ -46,7 +46,7 @@ const students = [
     visitForm: "",
   },
   {
-    id: 3,
+    id: "3",
     firstName: "Hugo",
     lastName: "Stephan",
     missionDescription: "blblbl",
@@ -84,10 +84,6 @@ export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
               myEfrei is your new extranet platform. It will gradually replace
               the Group Efrei campus extranet and will eventually become your
               single point of access to applications and partner sites.
-              <br />
-              <br />
-              The site will evolve in the near future and the functionalities
-              will be expanded over the months...
             </Text>
           </div>
           <Image
@@ -108,7 +104,7 @@ export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
           {liststudents && (
             <div>{liststudents.map((student) => student.firstName)}</div>
           )}
-          <Tables elements={students} />
+          <Tables data={students} />
         </Stack>
       </Container>
     </>
