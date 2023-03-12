@@ -1,18 +1,25 @@
-import { Container, Divider, Image, Stack, Text, Title } from "@mantine/core";
+import {
+  Button,
+  Container,
+  Divider,
+  Image,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 import Navbar from "../components/Navbar";
 import SchoolTutor from "../entities/SchoolTutor";
-import Student from "../entities/Student";
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Tables from "../components/Tables";
-import StudentsService from "../services/studentService"
+import StudentsService from "../services/studentService";
+import { useNavigate } from "react-router-dom";
 
 interface HomeProps {
   schoolTutor: SchoolTutor;
   setSchoolTutor: Dispatch<SetStateAction<null>>;
+  setStudentId: (id: number) => void;
 }
-
-
 
 const students = [
   {
@@ -49,61 +56,72 @@ const students = [
   },
 ];
 
-export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
-  const [liststudents, setStudents] = useState<any[]>()
+export default function Home({
+  schoolTutor,
+  setSchoolTutor,
+  setStudentId,
+}: HomeProps) {
+  const [liststudents, setStudents] = useState<any[]>();
+  let navigate = useNavigate();
 
-useEffect(() => {
-  const fetchPortfolios = async () => {
-    try {
-      const res = await StudentsService.getStudents()
-      console.log(res)
-      setStudents(res)
-    } catch (err) {
-      console.log("Couldn't fetch students")
-    }
-  }
-  fetchPortfolios()
-}, [liststudents])
+  useEffect(() => {
+    const fetchPortfolios = async () => {
+      try {
+        const res = await StudentsService.getStudents();
+        console.log(res);
+        setStudents(res);
+      } catch (err) {
+        console.log("Couldn't fetch students");
+      }
+    };
+    fetchPortfolios();
+  }, [liststudents]);
 
   return (
     <>
-      <>
-        <Navbar user={schoolTutor} setUser={setSchoolTutor} />
-        <Container>
-          <div className="inner">
-            <div className="content">
-              <Title className="title">
-                Welcome to the <span className="highlight">tutor's</span> portal
-              </Title>
-              <Text color="dimmed" mt="md">
-                myEfrei is your new extranet platform. It will gradually replace
-                the Group Efrei campus extranet and will eventually become your
-                single point of access to applications and partner sites.
-                <br />
-                <br />
-                The site will evolve in the near future and the functionalities
-                will be expanded over the months...
-              </Text>
-            </div>
-            <Image
-              radius={"md"}
-              src="https://images.pexels.com/photos/8197543/pexels-photo-8197543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              className="image"
-              alt="student-and-professor"
-            />
+      <Navbar user={schoolTutor} setUser={setSchoolTutor} />
+      <Container>
+        <div className="inner">
+          <div className="content">
+            <Title className="title">
+              Welcome to the <span className="highlight">tutor's</span> portal
+            </Title>
+            <Text color="dimmed" mt="md">
+              myEfrei is your new extranet platform. It will gradually replace
+              the Group Efrei campus extranet and will eventually become your
+              single point of access to applications and partner sites.
+              <br />
+              <br />
+              The site will evolve in the near future and the functionalities
+              will be expanded over the months...
+            </Text>
           </div>
-          <Stack>
-            <Title>Students list:</Title>
-            <Divider />
-            {(liststudents && <div>{liststudents.map((student) => student.firstName)}</div>)}
-            <Tables elements={students} />
-          </Stack>
-        </Container>
-      </>
+          <Image
+            radius={"md"}
+            src="https://images.pexels.com/photos/8197543/pexels-photo-8197543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+            className="image"
+            alt="student-and-professor"
+          />
+        </div>
+        <Stack>
+          <Title>Students list:</Title>
+          <Button
+            variant="gradient"
+            gradient={{ from: "teal", to: "lime" }}
+            onClick={() => navigate("/create-student")}
+          >
+            Create new student
+          </Button>
+          <Divider />
+          {liststudents && (
+            <div>{liststudents.map((student) => student.firstName)}</div>
+          )}
+          <Tables elements={students} setStudentId={setStudentId} />
+        </Stack>
+      </Container>
     </>
   );
 }
 function setLoading(arg0: boolean) {
   throw new Error("Function not implemented.");
 }
-
