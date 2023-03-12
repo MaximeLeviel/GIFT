@@ -3,6 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import StudentDetails from "./pages/StudentDetails";
 
 export default function App() {
 
@@ -25,6 +26,14 @@ export default function App() {
           ( <Navigate to="/login" /> )
         }
         />
+        <Route path="/students/:id" element={ 
+          schoolTutor ? 
+          ( <StudentDetails schoolTutor={schoolTutor} setSchoolTutor={setSchoolTutor}/> ) 
+          : 
+          ( <Navigate to="/login" /> )
+        }
+        />
+        
         <Route path="/*" element={ 
           schoolTutor ? 
           ( <Navigate to="/home" /> ) 

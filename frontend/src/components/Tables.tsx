@@ -1,6 +1,7 @@
 import { Badge, Button, Table } from "@mantine/core";
 import { upperFirst } from "@mantine/hooks";
 import { showNotification } from "@mantine/notifications";
+import { Link } from "react-router-dom";
 
 interface StudentsListProps {
   elements: {
@@ -44,6 +45,7 @@ export default function Tables({ elements }: StudentsListProps) {
       </td>
       <td>{element.comment}</td>
       <td>
+        <Link to={"/students/" + element.id}>
         <Button
           variant="gradient"
           gradient={{ from: "indigo", to: "cyan" }}
@@ -74,6 +76,7 @@ export default function Tables({ elements }: StudentsListProps) {
         >
           Edit
         </Button>
+        </Link>
       </td>
     </tr>
   ));
