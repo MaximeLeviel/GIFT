@@ -1,8 +1,9 @@
 package com.st2apr.gift.controller;
 
-import com.st2apr.gift.jwt.Jwt;
+import com.st2apr.gift.session.Jwt;
 import com.st2apr.gift.model.SchoolTutor;
 import com.st2apr.gift.repository.SchoolTutorRepository;
+import com.st2apr.gift.session.Logindetails;
 import jakarta.persistence.NoResultException;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;

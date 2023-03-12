@@ -1,6 +1,6 @@
 package com.st2apr.gift.controller;
 
-import com.st2apr.gift.jwt.Jwt;
+import com.st2apr.gift.session.Jwt;
 import com.st2apr.gift.model.Student;
 import com.st2apr.gift.repository.StudentRepository;
 

@@ -1,4 +1,4 @@
-package com.st2apr.gift.controller;
+package com.st2apr.gift.session;
 
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;

@@ -1,4 +1,4 @@
-package com.st2apr.gift.jwt;
+package com.st2apr.gift.session;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
