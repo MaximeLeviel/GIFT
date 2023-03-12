@@ -10,35 +10,26 @@ import {
 } from "@mantine/core";
 import { DateInput } from "@mantine/dates";
 import Navbar from "../components/Navbar";
-import SchoolTutor from "../entities/SchoolTutor";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { Plus, X } from "tabler-icons-react";
 import { useNavigate } from "react-router-dom";
 import Student from "../entities/Student";
 import StudentsService from "../services/studentService";
 
 interface DetailsProps {
-  schoolTutor: SchoolTutor;
-  setSchoolTutor: Dispatch<SetStateAction<null>>;
   currentStudent?: Student;
 }
 
 const emptyStudent = {} as Student;
 
-export default function Details({
-  schoolTutor,
-  setSchoolTutor,
-  currentStudent,
-}: DetailsProps) {
-
+export default function Details({ currentStudent }: DetailsProps) {
   const [student, setStudent] = useState(currentStudent ?? emptyStudent);
   let navigate = useNavigate();
 
   const createStudent = async () => {
-    if(currentStudent) {
+    if (currentStudent) {
       await StudentsService.updateStudent(student);
-    }
-    else {
+    } else {
       await StudentsService.createStudent(student);
     }
     navigate("/home");
@@ -50,15 +41,15 @@ export default function Details({
 
   const setStartDate = (Date: Date) => {
     setStudent({ ...student, startDate: Date });
-  }
+  };
 
   const setEndDate = (Date: Date) => {
     setStudent({ ...student, endDate: Date });
-  }
+  };
 
   return (
     <>
-      <Navbar user={schoolTutor} setUser={setSchoolTutor} />
+      <Navbar />
       <Container my="md">
         <Grid>
           <Grid.Col xs={6}>
@@ -99,14 +90,18 @@ export default function Details({
               />
               <TextInput
                 value={student.companyAddress}
-                onChange={(e) => onChange(e.currentTarget.value, "companyAddress")}
+                onChange={(e) =>
+                  onChange(e.currentTarget.value, "companyAddress")
+                }
                 label="Address"
                 placeholder="Address"
                 inputWrapperOrder={["label", "input", "description"]}
               />
               <TextInput
                 value={student.companyTutor}
-                onChange={(e) => onChange(e.currentTarget.value, "companyTutor")}
+                onChange={(e) =>
+                  onChange(e.currentTarget.value, "companyTutor")
+                }
                 label="Tutor"
                 placeholder="Tutor"
                 inputWrapperOrder={["label", "input", "description"]}
@@ -135,7 +130,9 @@ export default function Details({
               <Textarea
                 autosize
                 value={student.missionDescription}
-                onChange={(e) => onChange(e.currentTarget.value, "missionDescription")}
+                onChange={(e) =>
+                  onChange(e.currentTarget.value, "missionDescription")
+                }
                 placeholder="Mission description"
                 label="Mission description"
               />

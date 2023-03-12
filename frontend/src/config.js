@@ -1,4 +1,3 @@
-//TODO: Change URLs
 const config = {
   apiBaseUrl: {
     development: "http://127.0.0.1:8080/gift-1.0-SNAPSHOT/api",

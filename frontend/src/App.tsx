@@ -17,50 +17,20 @@ export default function App() {
       <Routes>
         <Route
           path="/home"
-          element={
-            schoolTutor ? (
-              <Home schoolTutor={schoolTutor} setSchoolTutor={setSchoolTutor} />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
+          element={schoolTutor ? <Home /> : <Navigate to="/login" />}
         />
         <Route
           path="/students/create"
-          element={
-            schoolTutor ? (
-              <Details
-                schoolTutor={schoolTutor}
-                setSchoolTutor={setSchoolTutor}
-              />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
+          element={schoolTutor ? <Details /> : <Navigate to="/login" />}
         />
         <Route
           path="/students/:id"
-          element={
-            schoolTutor ? (
-              <UpdateStudent
-                schoolTutor={schoolTutor}
-                setSchoolTutor={setSchoolTutor}
-              />
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
+          element={schoolTutor ? <UpdateStudent /> : <Navigate to="/login" />}
         />
         {/* Redirect from /login to /home if already connected */}
         <Route
           path="/login"
-          element={
-            schoolTutor ? (
-              <Navigate to="/home" />
-            ) : (
-              <Login setSchoolTutor={setSchoolTutor} setToken={setToken} />
-            )
-          }
+          element={schoolTutor ? <Navigate to="/home" /> : <Login />}
         />
         <Route
           path="/*"

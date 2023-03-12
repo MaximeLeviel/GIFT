@@ -6,16 +6,19 @@ import {
   Header,
   Text,
 } from "@mantine/core";
-import { Dispatch, SetStateAction } from "react";
+import { useState } from "react";
 import { Logout, School } from "tabler-icons-react";
 import SchoolTutor from "../entities/SchoolTutor";
 
-interface HeaderSimpleProps {
-  user: SchoolTutor;
-  setUser: Dispatch<SetStateAction<null>>;
-}
+export default function Navbar() {
+  const [user, setUser] = useState<SchoolTutor>(
+    JSON.parse(localStorage.getItem("schoolTutor") || "null")
+  );
+  const logout = () => {
+    localStorage.setItem("token", JSON.stringify(null));
+    localStorage.setItem("schoolTutor", JSON.stringify(null));
+  };
 
-export default function Navbar({ user, setUser }: HeaderSimpleProps) {
   return (
     <Header height={60}>
       <Container id="navbar">
@@ -29,7 +32,7 @@ export default function Navbar({ user, setUser }: HeaderSimpleProps) {
           </div>
           <Divider orientation="vertical" />
           <ActionIcon title="Log out" size={"lg"}>
-            <Logout color={"blue"} onClick={() => setUser(null)} />
+            <Logout color={"blue"} onClick={logout} />
           </ActionIcon>
         </Group>
       </Container>

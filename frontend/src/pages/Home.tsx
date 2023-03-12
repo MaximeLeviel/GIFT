@@ -8,17 +8,10 @@ import {
   Title,
 } from "@mantine/core";
 import Navbar from "../components/Navbar";
-import SchoolTutor from "../entities/SchoolTutor";
-
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Tables from "../components/Tables";
 import StudentsService from "../services/studentService";
 import { Link } from "react-router-dom";
-
-interface HomeProps {
-  schoolTutor: SchoolTutor;
-  setSchoolTutor: Dispatch<SetStateAction<null>>;
-}
 
 const students = [
   {
@@ -55,7 +48,7 @@ const students = [
   },
 ];
 
-export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
+export default function Home() {
   const [liststudents, setStudents] = useState<any[]>();
 
   useEffect(() => {
@@ -73,7 +66,7 @@ export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
 
   return (
     <>
-      <Navbar user={schoolTutor} setUser={setSchoolTutor} />
+      <Navbar />
       <Container>
         <div className="inner">
           <div className="content">
@@ -109,7 +102,4 @@ export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
       </Container>
     </>
   );
-}
-function setLoading(arg0: boolean) {
-  throw new Error("Function not implemented.");
 }

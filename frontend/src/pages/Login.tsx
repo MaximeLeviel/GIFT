@@ -13,12 +13,7 @@ import { AxiosError } from "axios";
 import Admin from "../entities/SchoolTutor";
 import "../styles/global.scss";
 
-interface AuthenticationProps {
-  setSchoolTutor: (user: any) => void;
-  setToken: (token: string) => void;
-}
-
-export default function Login(props: AuthenticationProps) {
+export default function Login() {
   const form = useForm({
     initialValues: {
       email: "",
@@ -76,8 +71,11 @@ export default function Login(props: AuthenticationProps) {
             },
           }),
         });
-        props.setSchoolTutor(response);
-        props.setToken(response.headers["authorization"]);
+        localStorage.setItem(
+          "token",
+          JSON.stringify(response.headers["authorization"])
+        );
+        localStorage.setItem("schoolTutor", JSON.stringify(response));
       })
       .catch((error: AxiosError) => {
         if (!error.response) {
@@ -151,7 +149,10 @@ export default function Login(props: AuthenticationProps) {
 
   const login = () => {
     //TODO: To delete when the API calls are done
-    props.setSchoolTutor({ firstName: "John", lastName: "Doe" });
+    localStorage.setItem(
+      "schoolTutor",
+      JSON.stringify({ firstName: "John", lastName: "Doe" })
+    );
     showNotification({
       title: "Logged in",
       message: "You have been logged in",

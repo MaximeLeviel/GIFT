@@ -1,5 +1,6 @@
 import * as httpService from "./httpService";
 import APICONSTANTS from "../constants/constants";
+import Student from "../entities/Student";
 
 export default class StudentsService {
   public static getStudents() {
@@ -48,7 +49,7 @@ export default class StudentsService {
 
   public static updateStudent(student: Student) {
     return httpService
-      .put(APICONSTANTS.STUDENT + '/' + student.id, student)
+      .put(APICONSTANTS.STUDENT + "/" + student.id, student)
       .then((response) => {
         return response.data;
       })
