@@ -1,8 +1,11 @@
 package com.st2apr.gift.repository;
 
 import com.st2apr.gift.model.SchoolTutor;
+import com.st2apr.gift.model.Student;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Stateless
 public class SchoolTutorRepository {
@@ -19,8 +22,9 @@ public class SchoolTutorRepository {
         endTransaction(transaction);
     }
 
-    public SchoolTutor findById(int id) {
-        return entityManager.find(SchoolTutor.class, id);
+    public List<SchoolTutor> findAllTutors() {
+        TypedQuery<SchoolTutor> query = entityManager.createNamedQuery("SchoolTutor.findAllTutors", SchoolTutor.class);
+        return query.getResultList();
     }
 
     public SchoolTutor findByEmail(String email) {
@@ -32,6 +36,13 @@ public class SchoolTutorRepository {
             return null;
         }
     }
+
+    public SchoolTutor findById(int id) {
+        return entityManager.find(SchoolTutor.class, id);
+    }
+
+
+
 
     public void update(SchoolTutor schoolTutor) {
         EntityTransaction transaction = startTransaction();
