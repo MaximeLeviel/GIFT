@@ -18,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 interface HomeProps {
   schoolTutor: SchoolTutor;
   setSchoolTutor: Dispatch<SetStateAction<null>>;
-  setStudentId: (id: number) => void;
 }
 
 const students = [
@@ -56,11 +55,7 @@ const students = [
   },
 ];
 
-export default function Home({
-  schoolTutor,
-  setSchoolTutor,
-  setStudentId,
-}: HomeProps) {
+export default function Home({ schoolTutor, setSchoolTutor }: HomeProps) {
   const [liststudents, setStudents] = useState<any[]>();
   let navigate = useNavigate();
 
@@ -108,7 +103,7 @@ export default function Home({
           <Button
             variant="gradient"
             gradient={{ from: "teal", to: "lime" }}
-            onClick={() => navigate("/create-student")}
+            onClick={() => navigate("/students/create")}
           >
             Create new student
           </Button>
@@ -116,7 +111,7 @@ export default function Home({
           {liststudents && (
             <div>{liststudents.map((student) => student.firstName)}</div>
           )}
-          <Tables elements={students} setStudentId={setStudentId} />
+          <Tables elements={students} />
         </Stack>
       </Container>
     </>

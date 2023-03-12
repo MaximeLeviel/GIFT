@@ -9,7 +9,6 @@ import CreateStudent from "./pages/CreateStudent";
 
 export default function App() {
   const [schoolTutor, setSchoolTutor] = useState(null);
-  const [studentId, setStudentId] = useState(-1);
 
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
@@ -29,18 +28,14 @@ export default function App() {
           path="/home"
           element={
             schoolTutor ? (
-              <Home
-                schoolTutor={schoolTutor}
-                setSchoolTutor={setSchoolTutor}
-                setStudentId={setStudentId}
-              />
+              <Home schoolTutor={schoolTutor} setSchoolTutor={setSchoolTutor} />
             ) : (
               <Navigate to="/login" />
             )
           }
         />
         <Route
-          path="/create-student"
+          path="/students/create"
           element={
             schoolTutor ? (
               <CreateStudent
@@ -53,13 +48,12 @@ export default function App() {
           }
         />
         <Route
-          path="/details"
+          path="/students/:id"
           element={
-            schoolTutor && studentId >= 0 ? (
+            schoolTutor ? (
               <Details
                 schoolTutor={schoolTutor}
                 setSchoolTutor={setSchoolTutor}
-                studentId={studentId}
               />
             ) : (
               <Navigate to="/login" />

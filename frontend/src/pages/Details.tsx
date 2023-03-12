@@ -13,19 +13,15 @@ import Navbar from "../components/Navbar";
 import SchoolTutor from "../entities/SchoolTutor";
 import { Dispatch, SetStateAction, useState } from "react";
 import { Reload, X } from "tabler-icons-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface DetailsProps {
   schoolTutor: SchoolTutor;
   setSchoolTutor: Dispatch<SetStateAction<null>>;
-  studentId: number;
 }
 
-export default function Details({
-  schoolTutor,
-  setSchoolTutor,
-  studentId,
-}: DetailsProps) {
+export default function Details({ schoolTutor, setSchoolTutor }: DetailsProps) {
+  let { id } = useParams();
   //TODO : make API call to get user details (add data to state)
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -55,7 +51,7 @@ export default function Details({
             <Text mb={5}>Student details:</Text>
             <Paper shadow="md" p="xl" withBorder>
               <TextInput
-                value={studentId}
+                value={id}
                 disabled
                 label="Id"
                 inputWrapperOrder={["label", "input", "description"]}
