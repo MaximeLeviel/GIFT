@@ -1,5 +1,7 @@
 import { Badge, Button, Table } from "@mantine/core";
 import { upperFirst } from "@mantine/hooks";
+import { showNotification } from "@mantine/notifications";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 interface StudentsListProps {
@@ -11,16 +13,9 @@ interface StudentsListProps {
     comment: string;
     visitForm: string;
   }[];
-  setStudentId: (id: number) => void;
 }
 
-export default function Tables({ elements, setStudentId }: StudentsListProps) {
-  let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `/details`;
-    navigate(path);
-  };
-
+export default function Tables({ elements }: StudentsListProps) {
   const rows = elements.map((element) => (
     <tr key={element.id}>
       <td>{element.lastName.toUpperCase()}</td>
@@ -51,6 +46,7 @@ export default function Tables({ elements, setStudentId }: StudentsListProps) {
       </td>
       <td>{element.comment}</td>
       <td>
+        <Link to={"/students/" + element.id}>
         <Button
           variant="gradient"
           gradient={{ from: "indigo", to: "cyan" }}
@@ -62,6 +58,7 @@ export default function Tables({ elements, setStudentId }: StudentsListProps) {
         >
           Edit
         </Button>
+        </Link>
       </td>
     </tr>
   ));
