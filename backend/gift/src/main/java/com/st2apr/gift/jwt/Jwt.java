@@ -5,17 +5,15 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.InvalidClaimException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.persistence.NoResultException;
-import jakarta.ws.rs.HeaderParam;
 
 import java.util.Date;
 import java.util.UUID;
 
 public class Jwt {
 
-    public static String jwtToken(String email) {
+    public static String createJWT(String email) {
         Algorithm algorithm = Algorithm.HMAC256("secret");
 
         return JWT.create()
@@ -25,7 +23,8 @@ public class Jwt {
             .withIssuedAt(new Date())
             .withJWTId(UUID.randomUUID()
                     .toString())
-            .sign(algorithm); }
+            .sign(algorithm); 
+    }
 
     public static String verifyToken(String token) {
         Algorithm algorithm = Algorithm.HMAC256("secret");
@@ -39,20 +38,18 @@ public class Jwt {
         return null;
     }
 
-    public static String getTokenFromHeader(String token){
-        try {
-            if (token.isEmpty()) {
-                throw new NoResultException("No authentification headers");
+     public static String getAuthenticatedUser(String token) {
+        if (token.isEmpty()) {
+            throw new NoResultException("No authentification headers");
+        } else {
+            String email = Jwt.verifyToken(token);
+            if (email.isEmpty()) {
+                throw new InvalidClaimException("Invalid token");
             } else {
-                String userId = Jwt.verifyToken(token);
-                if (userId.isEmpty()) {
-                    throw new InvalidClaimException("Invalid token");
-                } else {
-                    return userId;
-                }
+                return email;
             }
-        } catch (Exception e) {
-            return null;
         }
+
     }
+
 }

@@ -19,13 +19,13 @@ public class SchoolTutorController {
     @Produces("application/json")
     public List<SchoolTutor> getAllTutors(@HeaderParam("AuthToken") String token) {
         try {
-            String verify = Jwt.getTokenFromHeader(token);
-            if (verify == null) {
+            String userEmail = Jwt.getAuthenticatedUser(token);
+            if (userEmail == null) {
                 throw new NoResultException("Invalid AuthToken");
             } else {
                 return schoolTutorRepository.findAllTutors();
             }
-        } catch (NoResultException e) {
+        } catch (Exception e) {
             return null;
         }
     }
@@ -33,27 +33,54 @@ public class SchoolTutorController {
     @GET()
     @Path("/{id}")
     @Produces("application/json")
-    public SchoolTutor findById(@PathParam("id") int id) {
-        return schoolTutorRepository.findById(id);
+    public SchoolTutor findById(@PathParam("id") int id, @HeaderParam("AuthToken") String token) {
+        try {
+            String userEmail = Jwt.getAuthenticatedUser(token);
+            if (userEmail == null) {
+                throw new NoResultException("Invalid AuthToken");
+            } else {
+                return schoolTutorRepository.findById(id);
+            }
+        }  catch (Exception e) {
+            return null;
+        }
     }
+    
     @POST
     @Consumes("application/json")
-    public void createTutor(SchoolTutor schoolTutor) {
-        schoolTutorRepository.create(schoolTutor);
+    public void createTutor(SchoolTutor schoolTutor, @HeaderParam("AuthToken") String token) {
+        try {
+            String userEmail = Jwt.getAuthenticatedUser(token);
+            if (userEmail == null) {
+                throw new NoResultException("Invalid AuthToken");
+            }
+
+            schoolTutorRepository.create(schoolTutor);
+
+        } catch (Exception e) {
+            return;
+        }
     }
+
 
     @POST
     @Path("/login")
     @Consumes("application/json")
     @Produces("application/json")
-    public Response login(Logindetails login) {
+    @HeaderParam("AuthToken")
+    public Response login(Logindetails login, @HeaderParam("AuthToken") String authToken) {
+
+        if (!authToken.isEmpty()) {
+            return Response.status(200).entity("You are already logged in").build();
+        }
+
         try {
             SchoolTutor tutor = schoolTutorRepository.findByEmail(login.email);
             if (tutor == null){
                 throw new NoResultException("No tutors with that email");
             } else {
                 if (login.password.equals(tutor.getPassword())) {
-                    String token = Jwt.jwtToken(login.email);
+                    String token = Jwt.createJWT(login.email);
                     return Response.status(200).entity("You are successfully logged in").header("AuthToken", token).build();
                 } else {
                     throw new NoResultException();
@@ -67,7 +94,17 @@ public class SchoolTutorController {
     @PUT
     @Path("/{id}")
     @Consumes("application/json")
-    public void updateTutor(SchoolTutor schoolTutor) {
-        schoolTutorRepository.update(schoolTutor);
+    public void updateTutor(SchoolTutor schoolTutor, @HeaderParam("AuthToken") String token) {
+
+        try {
+            String userEmail = Jwt.getAuthenticatedUser(token);
+            if (userEmail == null) {
+                throw new NoResultException("Invalid AuthToken");
+            }
+
+            schoolTutorRepository.update(schoolTutor);
+        } catch (Exception e) {
+            return;
+        }
     }
 }
