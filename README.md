@@ -2,6 +2,16 @@
 
 This project comes from the "Advanced Programming" subject taught by Mr. Jacques Augustin.
 
+## Known issues 
+
+```bash 
+Access to XMLHttpRequest at 'http://127.0.0.1:8080/gift-1.0-SNAPSHOT/api/users/login' from origin 'http://localhost:3000' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource. 
+```
+
+The following issue is a known bug, taking place on the frontend side. In fact, due to CORS policy some routes throw the previous error. Obvioulsy, we saw the bug, but we couldn't find a viable solution to the issue. 
+
+Using postman to test backend's routes does not throw the previous error and works perfectly.
+
 ## Installation
 
 ### Set up backend
