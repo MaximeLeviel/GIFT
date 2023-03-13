@@ -11,7 +11,7 @@ import {
 import { DateInput } from "@mantine/dates";
 import Navbar from "../components/Navbar";
 import { useState } from "react";
-import { Plus, Reload, X } from "tabler-icons-react";
+import { Reload, X } from "tabler-icons-react";
 import { useNavigate } from "react-router-dom";
 import Student from "../entities/Student";
 import StudentsService from "../services/studentService";
