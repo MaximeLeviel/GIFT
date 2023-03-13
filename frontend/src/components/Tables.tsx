@@ -14,6 +14,7 @@ import { keys } from "@mantine/utils";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { ChevronDown, ChevronUp, Search, Selector } from "tabler-icons-react";
+import StudentsService from "../services/studentService";
 
 interface RowData {
   id: string;
@@ -88,8 +89,8 @@ export default function Tables({ data }: TableSortProps) {
   const [sortBy, setSortBy] = useState<keyof RowData | null>(null);
   const [reverseSortDirection, setReverseSortDirection] = useState(false);
 
-  function removeUser(id: string) {
-    //TODO: remove user from the list with the given id
+  async function removeUser(id: string) {
+    await StudentsService.removeStudent(Number(id));
   }
 
   const setSorting = (field: keyof RowData) => {

@@ -22,8 +22,6 @@ export default function CreateStudent() {
     let navigate = useNavigate();
 
     const createStudent = async () => {
-        //TODO : make API call to create user
-        // using : firstName, lastName, groupName, companyName, companyAddress, companyTutor, startDate, endDate, missionDesc, comment, formVisit
         await StudentsService.createStudent(student);
         navigate("/home");
     };

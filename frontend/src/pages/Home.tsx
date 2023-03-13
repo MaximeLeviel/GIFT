@@ -49,7 +49,7 @@ const students = [
 ];
 
 export default function Home() {
-  const [liststudents, setStudents] = useState<any[]>();
+  const [liststudents, setStudents] = useState(students);
 
   useEffect(() => {
     const fetchPortfolios = async () => {
@@ -94,10 +94,7 @@ export default function Home() {
             </Button>
           </Link>
           <Divider />
-          {liststudents && (
-            <div>{liststudents.map((student) => student.firstName)}</div>
-          )}
-          <Tables data={students} />
+          <Tables data={liststudents} />
         </Stack>
       </Container>
     </>
