@@ -4,8 +4,8 @@ import { useLocalStorage } from "./hooks/useLocalStorage";
 import Home from "./pages/Home";
 import { Notifications } from "@mantine/notifications";
 import Details from "./pages/Details";
-import UpdateStudent from "./pages/UpdateStudent";
 import Login from "./pages/Login";
+import CreateStudent from "./pages/CreateStudent";
 
 export default function App() {
   const [schoolTutor, setSchoolTutor] = useLocalStorage("schoolTutor", null);
@@ -21,11 +21,11 @@ export default function App() {
         />
         <Route
           path="/students/create"
-          element={schoolTutor ? <Details /> : <Navigate to="/login" />}
+          element={schoolTutor ? <CreateStudent /> : <Navigate to="/login" />}
         />
         <Route
           path="/students/:id"
-          element={schoolTutor ? <UpdateStudent /> : <Navigate to="/login" />}
+          element={schoolTutor ? <Details /> : <Navigate to="/login" />}
         />
         {/* Redirect from /login to /home if already connected */}
         <Route

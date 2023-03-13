@@ -11,27 +11,20 @@ import {
 import { DateInput } from "@mantine/dates";
 import Navbar from "../components/Navbar";
 import { useState } from "react";
-import { Plus, X } from "tabler-icons-react";
+import { Plus, Reload, X } from "tabler-icons-react";
 import { useNavigate } from "react-router-dom";
 import Student from "../entities/Student";
 import StudentsService from "../services/studentService";
 
-interface DetailsProps {
-  currentStudent?: Student;
-}
 
 const emptyStudent = {} as Student;
 
-export default function Details({ currentStudent }: DetailsProps) {
-  const [student, setStudent] = useState(currentStudent ?? emptyStudent);
+export default function Details() {
+  const [student, setStudent] = useState(emptyStudent);
   let navigate = useNavigate();
 
-  const createStudent = async () => {
-    if (currentStudent) {
-      await StudentsService.updateStudent(student);
-    } else {
-      await StudentsService.createStudent(student);
-    }
+  const updateStudent = async () => {
+    await StudentsService.updateStudent(student);
     navigate("/home");
   };
 
@@ -162,11 +155,11 @@ export default function Details({ currentStudent }: DetailsProps) {
             Cancel
           </Button>
           <Button
-            leftIcon={<Plus size="1rem" />}
-            color={"green"}
-            onClick={createStudent}
+            leftIcon={<Reload size="1rem" />}
+            color={"cyan"}
+            onClick={updateStudent}
           >
-            Create student
+            Update student
           </Button>
         </Group>
       </Container>

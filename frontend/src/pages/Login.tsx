@@ -75,6 +75,7 @@ export default function Login() {
           "token",
           JSON.stringify(response.headers["authorization"])
         );
+        console.log(response.headers["authorization"]);
         localStorage.setItem("schoolTutor", JSON.stringify(response));
       })
       .catch((error: AxiosError) => {

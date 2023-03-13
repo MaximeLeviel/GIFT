@@ -10,6 +10,7 @@ export function get(resourceName, params = {}) {
     params: params,
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
+      "Access-Control-Allow-Origin": "http://127.0.0.1:8080",
     },
   };
   return axios(config);
@@ -22,6 +23,7 @@ export function post(resourceName, data) {
     data: data,
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
+      "Access-Control-Allow-Origin": "http://127.0.0.1:8080",
     },
   };
   return axios(config);
@@ -34,6 +36,7 @@ export function put(resourceName, data) {
     data: data,
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
+      "Access-Control-Allow-Origin": "http://127.0.0.1:8080",
     },
   };
   return axios(config);
@@ -45,6 +48,7 @@ export function destroy(resourceName, id) {
     url: `${API_BASE_URL}/${resourceName}/${id}`,
     headers: {
       Authorization: "Bearer " + localStorage.getItem("token"),
+      "Access-Control-Allow-Origin": "http://127.0.0.1:8080",
     },
   };
   return axios(config);
