@@ -1,0 +1,72 @@
+// This file can be imported by .tsx files using:
+// import 'styles/global.scss'
+@import "variables.scss";
+
+#authentication {
+  background-size: cover;
+  min-height: 900px;
+  background-image: url("https://images.pexels.com/photos/8301240/pexels-photo-8301240.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+}
+
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.highlight {
+  position: relative;
+  background-color: rgb(231, 245, 255, 1);
+  border-radius: 4px;
+  padding: 4px 12px;
+}
+
+.title {
+  font-family: "Greycliff CF", sans-serif;
+  font-size: 44px;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  padding-top: $xl * 2;
+  padding-bottom: $xl * 1;
+}
+
+.content {
+  max-width: 480px;
+  margin-right: $xl * 4;
+  @media (max-width: 768px) {
+    max-width: 100%;
+    margin-right: 0;
+  }
+}
+
+.image {
+  flex: 1;
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.th {
+  padding: 0 !important;
+}
+
+.control {
+  width: 100%;
+  padding: $xs;
+
+  &:hover {
+    background-color: #f8f9fa;
+  }
+}
+
+#icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 21rem;
+}
